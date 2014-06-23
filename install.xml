@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<contrib>
+    <description>
+        <details contrib_ref="0" forum_ref="0" contrib_type="Модуль для покупки в один клик" status="0" last_update="2007-03-02"/>
+        <comments>Покупка в один клик
+        </comments>
+        <credits>Автор: Милан
+        
+				Добавляем в интернет-магазин кнопку для покупки в один клик.</credits>
+    </description>
+
+	<addfile>
+		<file name="order.php" />
+	</addfile>
+	
+	<addfile>
+		<file name="jscript/jquery/script.js" />
+	</addfile>
+	
+	<addfile>
+		<file name="templates/wcs/style.css" />
+	</addfile>
+	
+	<addfile>
+		<file name="templates/wcs/module/product_info/product_info_v1.html" />
+	</addfile>
+	
+	<addfile>
+		<file name="includes/header.php" />
+	</addfile>
+	
+	<addfile>
+		<file name="templates/wcs/img/ajax-loader2.gif" />
+		<file name="templates/wcs/img/basket.png" />
+		<file name="templates/wcs/img/close.png" />
+		<file name="templates/wcs/img/form_header_bg.jpg" />
+		<file name="templates/wcs/img/order_btn.gif" />
+		<file name="templates/wcs/img/order_error.png" />
+		<file name="templates/wcs/img/order_success.png" />
+		<file name="templates/wcs/img/ptichka.png" />
+	</addfile>
+	
+</contrib>

@@ -1,0 +1,328 @@
+{config_load file="$language/lang_$language.conf" section="product_info"}
+<!-------------------------------------------------------------------START MODULE ONE CLICK ORDER------------------------>
+    <div class="ocb-form" id="ocb-form-wrap">
+        <div class="ocb-form-header">
+            <div class="ocb-form-header-caption">Купить в 1 клик</div>
+            <div class="ocb-form-header-close"></div>
+        </div>
+        <form method="post" id="ocb-form" action="order.php"><div id="ocb-params">
+		    <input type="hidden" name="productsId" value="{$PRODUCTS_ID}" />
+            <input type="hidden" name="productName" value="{$PRODUCTS_NAME}" />
+            <input type="hidden" name="productPrice" value="{$PRODUCTS_PRICE_PLAIN}" />
+            <div class="ocb-form-field">
+            <label>Ваше имя	<ins>*</ins>			</label>
+            <input type="text" name="new_order-FIO" value="" id="ocb-id-FIO" />
+            <div id="ocb-id-FIO-error" class="ocb-error-msg">Обязательно укажите ваше имя</div>
+        </div>
+            <div class="ocb-form-field">
+                <label>Контактный телефон	<ins>*</ins>			</label>
+                <input type="text" name="new_order-PHONE" value="" id="ocb-id-PHONE" />
+                <div id="ocb-id-PHONE-error" class="ocb-error-msg">Обязательно укажите контактный телефон</div>
+                <div id="ocb-id-PHONE-format-error" class="ocb-error-msg">В номере телефона допускаются только цифры, скобки, пробелы, знак плюса и тире</div>
+            </div>
+            <div class="ocb-form-field">
+                <label>E-mail	<ins>*</ins>	</label>
+                <input type="text" name="new_order-EMAIL" value="" id="ocb-id-EMAIL" />
+				<div id="ocb-id-EMAIL-error" class="ocb-error-msg">Обязательно укажите e-mail</div>
+                <div id="ocb-id-EMAIL-format-error" class="ocb-error-msg">Укажите правильный e-mail или оставьте поле пустым</div>
+            </div>
+            <div class="intaro-modules-button ptichka">
+                <input type="submit" value="Отправить заказ" id="ocb-form-button" name="ocb_form_button" />
+            </div>
+            <div class="ocb-form-loader"></div>
+        </div></form>
+        <div class="ocb-form-result" id="ocb-form-result">
+            <div class="ocb-result-icon-success">Спасибо за заказ!</div>
+            <div class="ocb-result-icon-fail">Ошибка!</div>
+            <div class="ocb-result-text">В ближайшее время наш менеджер свяжется с вами.</div>
+        </div>
+    </div>
+
+<!-------------------------------------------------------------------END MODUL------------------------>
+{$FORM_ACTION}
+
+<div class="page product_item">
+    <div class="pagecontent">
+        {if $info_message}
+            <div class="contacterror">
+                {$info_message}
+            </div>
+        {/if}
+
+        {$PRODUCT_NAVIGATOR}
+        <div class="ProductInfoLeft" style="position: relative;">
+            {if $PRODUCTS_IMAGE or $PRODUCTS_MO_IMAGES or $PRODUCTS_IMAGE_LINK!=''}
+                <a href="{$PRODUCTS_ORIGINAL_IMAGE}" class="MagicZoomPlus" id="Zoomer2" rel="selectors-effect: fade; opacity-reverse:true;" style="margin-bottom: 7px;"><img src="{$PRODUCTS_POPUP_IMAGE}" class="Zoomer2Image" alt="балетки" /></a><!--<span style="display: inline;" id="DivZoomIco"></span>--> <br/>
+                    {if $PRODUCTS_MO_IMAGES or $PRODUCTS_IMAGE_LINK!=''}
+                    <!-- more images -->
+                    {if $PRODUCTS_MO_IMAGES}
+                        <a id="color_{$PRODUCTS_IMAGE_COLOR}_0" class="mini_image MagicThumb-swap" href="{$PRODUCTS_ORIGINAL_IMAGE}" rel="zoom-id:Zoomer2" rev="{$PRODUCTS_POPUP_IMAGE}" style="display: none;"><img src="resize/73x100/r/{$PRODUCTS_POPUP_IMAGE}" alt="{#text_zoom#}" /></a>
+                            {foreach name=mo_pic item=img_values from=$mo_img}
+                                {if $img_values.PRODUCTS_MO_POPUP_LINK !=''}
+                                <a id="color_{$img_values.PRODUCTS_MO_COLOR}" class="mini_image MagicThumb-swap" href="{$img_values.PRODUCTS_MO_ORIGINAL_IMAGE}" rel="zoom-id:Zoomer2" rev="{$img_values.PRODUCTS_MO_POPUP_IMAGE}" style="display: none;"><img src="resize/73x100/r/{$img_values.PRODUCTS_MO_POPUP_LINK}" alt="{#text_zoom#}" /></a>
+                                {/if}
+                            {/foreach}
+                        {/if}
+                    {/if}
+                {/if}
+
+            <script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
+			<div class="yashare-auto-init" data-yashareL10n="ru" data-yashareType="icon" data-yashareQuickServices="vkontakte,facebook,twitter,odnoklassniki,moimir,lj"></div> 
+
+            {if ($PRODUCTS_FSK18=='true') or ($MODULE_graduated_price !='')}
+
+                {if $PRODUCTS_FSK18=='true'}
+                    <p>
+                        <img src="{$tpl_path}img/fsk18.gif" alt="" />
+                    </p>
+                {/if}
+                {if $MODULE_graduated_price !=''}
+                    {$MODULE_graduated_price}
+                {/if}
+
+            {/if}
+            
+            {$MODULE_cross_selling}
+            
+        </div>
+
+        <div class="ProductInfoRight">
+
+        	<div class="productPageManufacturer" style="float: right; margin-top: 5px;"><img src="images/{$MANUFACTURER_IMAGE}" alt="{$MANUFACTURER}" title="{$MANUFACTURER}" style="width: 120px; height: auto;" /></div>
+            
+        	<h1 class="contentBoxHeading" style="margin-bottom: 5px; padding-bottom: 0px; width: 265px;">{$PRODUCTS_NAME}</h1>
+
+        	<div class="productPageSku" style="font-size: 11px; margin: 10px 0;">Артикул: {$PRODUCTS_MODEL}</div>
+            
+                <div class="productRating">
+                {$PRODUCTS_RATING_STARS}
+                 <a class="iframe" alt="Написать отзыв" href="product_reviews_write.php?products_id={$PRODUCTS_ID}">Написать отзыв</a>
+                </div>
+
+			<span class="bold">{$PRODUCTS_PRICE}</span>
+
+                {if $MODULE_product_options !=''}
+            		<div class="characts productOptions">
+                    {$MODULE_product_options}
+                    
+                    </div>
+                {/if}
+
+            {if $PRODUCTS_TAX_INFO}
+                <p>
+                    {$PRODUCTS_TAX_INFO}
+                </p>
+            {/if}
+
+            {if $PRODUCTS_SHIPPING_LINK}
+                <p>
+                    {$PRODUCTS_SHIPPING_LINK}
+                </p>
+            {/if}
+
+            {if $PRODUCTS_VPE}
+                <p>
+                    {$PRODUCTS_VPE}
+                </p>
+            {/if}
+
+
+
+            {if $PRODUCTS_DISCOUNT}
+                <p>
+                    {#text_discount#}&nbsp;{$PRODUCTS_DISCOUNT}
+                </p>
+            {/if}
+
+   			<div class="clear"></div>
+            
+            <span id="counterblock">{$ADD_QTY}<span id="plussbut"></span><span id="minusbut"></span></span>
+
+			<!-------------------------------------------------------------------MODUL------------------------>
+			<div><p>
+				<button id="show-ocb-form" class="intaro-modules-button basket"><i>Купить в 1 клик</i></button>
+			</p></div>
+			<!-------------------------------------------------------------------MODUL------------------------>
+			
+            <p class="CartContentRight">
+            	<!--{$ADD_CART_BUTTON}-->
+                <button type="submit" id="add_to_cart">Добавить в корзину</button>
+            </p>
+			
+            
+            <div class="characts">
+            
+            <!--<table class="specs_table">
+            <tbody><tr class="table_row_1"><td class="spec_name" valign="middle" width="50%"><p>Пол/Возраст</p></td><td class="spec_value" valign="middle"><p>Мужской</p></td></tr>
+                                                    <tr class="table_row_2"><td class="spec_name" valign="middle" width="50%"><p>Материал</p></td><td class="spec_value" valign="middle"><p>89%нейлон 11%ПУ</p></td></tr>
+                                                    <tr class="table_row_3"><td class="spec_name" valign="middle" width="50%"><p>Наполнитель</p></td><td class="spec_value" valign="middle"><p>40г стрейч в рукавах 60г стрейч в корпусе</p></td></tr>
+                                                    <tr class="table_row_4"><td class="spec_name" valign="middle" width="50%"><p>Водонепроницаемость</p></td><td class="spec_value" valign="middle"><p>20000 мм</p></td></tr>
+                                                    <tr class="table_row_5"><td class="spec_name" valign="middle" width="50%"><p>Мембрана</p></td><td class="spec_value" valign="middle"><p>керамическая</p></td></tr>
+                                                    <tr class="table_row_6"><td class="spec_name" valign="middle" width="50%"><p>Вывод влаги наружу</p></td><td class="spec_value" valign="middle"><p>27000 г через 1 м2</p></td></tr>
+                                                    <tr class="table_row_7"><td class="spec_name" valign="middle" width="50%"><p>Ультразвуковая сварка швов</p></td><td class="spec_value" valign="middle"><p>есть</p></td></tr>
+                                                    <tr class="table_row_8"><td class="spec_name" valign="middle" width="50%"><p>Система  FullFlex</p></td><td class="spec_value" valign="middle"><p>есть</p></td></tr>
+                                                    <tr class="table_row_9"><td class="spec_name" valign="middle" width="50%"><p>Минимальный вес</p></td><td class="spec_value" valign="middle"><p>есть</p></td></tr>
+                                                </tbody>
+                                                </table>-->
+                                                
+                    <!--{foreach name=outer item=spec_group from=$specifications_data}
+                    	<table class="specs_table">
+                        {foreach key=key_data item=spec from=$spec_group.DATA}
+                            <tr class="table_row_{counter}"><td valign="middle" class="spec_name" width="50%"><p>{$spec.NAME}</p></td><td valign="middle" class="spec_value"><p>{$spec.VALUE}</p></td></tr>
+                        {/foreach}
+                        </table>
+                    {/foreach}-->
+            </div>
+            
+            <div class="clear"></div>
+
+            <p class="helpbuttons">
+                <!-- <a class="iframe" href="{$PRODUCTS_PRINT_LINK}">{$PRODUCTS_PRINT}</a>&nbsp;{#print#}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
+
+                <a class="iframe question" href="{$ASK_PRODUCT_QUESTION_LINK}" alt="Задать вопрос по этому товару" target="_blank">{$ASK_PRODUCT_QUESTION}<span>Задать вопрос по этому товару</span></a>
+            </p>
+			{if $EUROPE_ICONS}
+			<a class="iframe" href="order_predzakaz_terms.php">Как купить?</a><br/>
+			<span class="rf_delivery"><span class="tooltip">Доставка по всей России!</span></span>
+			<span class="europe_quality"><span class="tooltip">Товар Европейского качества!</span></span>
+			<span class="return"><span class="tooltip">Возврат товара в течении 14 дней!</span></span>
+			{/if}
+
+            {if $SHIPPING_NAME}
+                <p>
+                {#text_shippingtime#}&nbsp;{if $SHIPPING_IMAGE}<img src="{$SHIPPING_IMAGE}" alt="{$SHIPPING_NAME}" />{/if}&nbsp;&nbsp;{$SHIPPING_NAME}
+            </p>
+        	{/if}
+            
+            
+
+    </div>
+
+    <div class="clear"></div>
+
+
+
+    <div id="tabs">
+        <ul class="ui-tabs-nav">
+            <li class="ui-state-default ui-tabs-selected"><a href="#tab1">Описание</a></li>
+            <li class="ui-state-default"><a href="#tab2">Информация о бренде</a></li>
+            <li class="ui-state-default"><a href="#tab3">Отзывы</a></li>
+        </ul>
+        <div id="tab1" class="ui-tabs-panel">
+            {$PRODUCTS_DESCRIPTION}
+        </div>
+        <div id="tab2" class="ui-tabs-panel ui-tabs-hide">
+            <h3>{$MANUFACTURER}</h3>
+            {$MANUFACTURER_DESCRIPTION}
+        </div>
+        <div id="tab3" class="ui-tabs-panel ui-tabs-hide">
+            {$MODULE_products_reviews}
+        </div>
+    </div>
+
+
+    {if $extra_fields_data}
+        {foreach name=aussen item=extra_fields from=$extra_fields_data} 
+            {$extra_fields.NAME}: {$extra_fields.VALUE}<br /> 
+        {/foreach}
+    {/if}
+
+
+
+
+
+    {if $PRODUCTS_TAGS}
+        <p>
+            {#text_tags#}: 
+            {foreach name=tags item=tag from=$tags_data}
+                <a href="{$tag.LINK}">{$tag.NAME}</a> 
+            {/foreach}
+        </p>
+    {/if}
+
+    {if $MODULE_tpt != ''}
+        <p>
+            {$MODULE_tpt}
+        </p>
+    {/if}
+
+    {if $PRODUCTS_URL != ''}
+        <p align="center">
+            {$PRODUCTS_URL}
+        </p>
+    {/if}
+
+
+
+    {if $PRODUCTS_DATE_AVIABLE != ''}
+        <p align="center">
+            {$PRODUCTS_DATE_AVIABLE}
+        </p>
+    {/if}
+
+
+
+</div>
+</div>
+
+{if $MODULE_bundle != ''}
+    {$MODULE_bundle}
+{/if}
+
+{if $MODULE_products_media != ''}
+    {$MODULE_products_media}
+{/if}
+
+{$FORM_END}
+
+{literal}
+<style>
+#maincontainer { padding-bottom: 180px; }
+</style>
+<script type="text/javascript">
+/*alert($('input[@class="spec_color"]:checked').val());*/
+
+function colorChangeOnClick() {
+/*$("body").delegate("#spec_35", "click", function() {
+    $("#color_35_2").click();
+});*/
+
+var colorRadio = document.getElementsByName('id[2]');
+	var o = 1;
+	for (var i = 0, length = colorRadio.length; i < length; i++) {
+		if (colorRadio[i].checked) {
+			
+			for (var k = 0; k < 20; k++) {
+				
+				for (var m = 0; m < 1000; m++) {
+					
+					if (document.getElementById('color_'+m+'_'+k)) {
+						document.getElementById('color_'+m+'_'+k).style.display='none'; 
+					};
+					
+				}
+				
+				if (document.getElementById('color_'+colorRadio[i].value+'_'+k)) {
+					if (o == 1) var minimum = k;
+					document.getElementById('color_'+colorRadio[i].value+'_'+k).style.display='inline-block'; 
+					o = o+1;
+				};
+				
+			}
+			
+			document.getElementById('Zoomer2').href = document.getElementById('color_'+colorRadio[i].value+'_'+minimum).href; 
+			//document.getElementById('Zoomer2Image').src = document.getElementById('color_'+colorRadio[i].value+'_'+minimum).rev; 
+			$(".Zoomer2Image").attr("src", document.getElementById('color_'+colorRadio[i].value+'_'+minimum).rev);
+			$(".MagicZoomHeaderImage").attr("src", document.getElementById('color_'+colorRadio[i].value+'_'+minimum).href);
+			
+			$("#color_link_option_"+colorRadio[i].value).attr("href", document.getElementById('color_'+colorRadio[i].value+'_'+minimum).href);
+			$("#color_link_option_"+colorRadio[i].value).attr("rev", document.getElementById('color_'+colorRadio[i].value+'_'+minimum).rev);
+			
+			
+		}
+	}	
+};
+window.onload = colorChangeOnClick();
+</script>
+{/literal}
+
